@@ -85,6 +85,10 @@
   font-family: "Roboto", Sans-serif;
   font-size: 14px;
   font-weight: 300;
+  text-decoration: none;
+}
+.card-body .card-content .read-more-link a span {
+  font-weight: 900;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

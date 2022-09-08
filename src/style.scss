@@ -90,13 +90,21 @@
              -webkit-box-orient: vertical;
          }
  
-         .read-more-link a {
-             color: #FF0000;
-             // background-color: #FFFFFF00;
-             padding: 0px 0px 0px 0px;
-             font-family: "Roboto", Sans-serif;
-             font-size: 14px;
-             font-weight: 300;
+         .read-more-link{
+
+            a{
+                color: #FF0000;
+                padding: 0px 0px 0px 0px;
+                font-family: "Roboto", Sans-serif;
+                font-size: 14px;
+                font-weight: 300;
+                text-decoration: none;
+
+                span{
+                    font-weight: 900;
+                }
+            }
+             
          }
      }
  

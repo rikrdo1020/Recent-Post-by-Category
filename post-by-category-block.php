@@ -57,7 +57,12 @@ function post_by_category_render_callback( $block_attributes, $content ) {
 				</div>
 				<div><h3 class='card-title'>".get_the_title($posts[$i])."</h3></div>
 				<div class='card-description'>".get_the_excerpt($posts[$i])."</div>
-				<div class='read-more-link'><a href='".get_permalink( $posts[$i])."'>Read More</a></div>
+				<div class='read-more-link'>
+					<a href='".get_permalink( $posts[$i])."'> 
+						<span>&gt;&gt;</span>
+						Read More
+					</a>
+				</div>
 			</div>
 		</div>
 		";
