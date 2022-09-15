@@ -33,7 +33,8 @@ registerBlockType( metadata.name, {
 	 */
 	edit: withSelect(select => {
 		return {
-			posts: select('core').getEntityRecords('postType', 'post', {per_page:4})
+			posts: select('core').getEntityRecords('postType', 'post', {per_page: 100}),
+			categorias: select('core').getEntityRecords('taxonomy', 'category', {per_page:100})
 		}
 	})(Edit),
 	

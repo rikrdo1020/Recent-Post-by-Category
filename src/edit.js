@@ -11,11 +11,20 @@ import { __ } from "@wordpress/i18n";
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from "@wordpress/block-editor";
-import apiFetch from "@wordpress/api-fetch";
-import { useState, useEffect } from "@wordpress/element";
-import { useSelect } from "@wordpress/data";
+import { 
+	useBlockProps,
+	InspectorControls
+} from "@wordpress/block-editor";
+import {
+	PanelBody,
+	PanelRow,
+	Panel,
+	SelectControl,
+	TextControl
+} from "@wordpress/components";
+import { useState } from '@wordpress/element';
 import Card from "./components/Card";
+
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -33,7 +42,18 @@ import { use } from "@wordpress/data";
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ posts, className, isSelected, setAttributes }) {
+export default function Edit({ posts, className, categorias, attributes, setAttributes }) {
+	const { category, numberPosts } = attributes;
+
+	const onChangeCategory = ( newCategory ) => {
+		setAttributes({category: newCategory})
+	}
+	const onChangeNumberPosts = (newNumberPosts) => {
+		setAttributes({numberPosts: newNumberPosts})
+	}
+
+	console.log(posts)
+	
 	if( !posts ){
 		return(
 			<p className={className}>Loading...</p>
@@ -45,17 +65,51 @@ export default function Edit({ posts, className, isSelected, setAttributes }) {
 		)
 	}
 	return (
-		<div className="card-container" {...useBlockProps()}>
-			{posts.map((e) => {
-				return (
-					<Card
-						title={e.title.rendered}
-						excerpt={e.excerpt.rendered}
-						image={e.featured_media}
-						data={e}
-					></Card>
-				);
-			})}
-		</div>
+		<>
+			<InspectorControls>
+				<Panel>
+					<PanelBody title="My Block Settings" initialOpen={ true }>
+						<PanelRow>
+							<SelectControl
+								label="Category"
+								value={ category }
+								options={
+									categorias.map( ctg => (
+										{
+											label: ctg.slug,
+											value: ctg.id
+										}
+									))
+								
+								}
+								onChange={ onChangeCategory }
+								__nextHasNoMarginBottom
+							/>
+						</PanelRow>
+						<PanelRow>
+							<TextControl
+								label="Number of posts"
+								value={ numberPosts }
+								onChange={ onChangeNumberPosts }
+							/>
+						</PanelRow>
+					</PanelBody>
+				</Panel>
+			</InspectorControls>
+			
+			<div className="card-container" {...useBlockProps()}>
+				{posts?.filter( post => post.categories.includes(parseInt(category))).slice(0, numberPosts).map((e) => {
+					return (
+						<Card
+							title={e.title.rendered}
+							excerpt={e.excerpt.rendered}
+							image={e.featured_media}
+							data={e}
+						></Card>
+					);
+				})}
+			</div>
+		</>
+		
 	);
 }

@@ -11,8 +11,13 @@
 		"html": false
 	},
 	"attributes": {
-		"postData": {
-			"type": "object"
+		"category": {
+			"type": "string",
+			"default": "0"
+		},
+		"numberPosts":{
+			"type":"int",
+			"default":4
 		}
 	},
 	"textdomain": "post-by-category-block",
